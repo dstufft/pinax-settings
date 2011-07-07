@@ -8,17 +8,15 @@ to allow you to override settings based on your environment.
 
 I believe that the current layout has a couple flaws, of which are:
 
-    * All Settings exist in one file. This makes for a long file which can be
+* All Settings exist in one file. This makes for a long file which can be
     difficult to tell why a particular setting is being set, and who is setting it.
-
-    * You cannot refer to the baseline settings inside of ``local_settings.py``. In
+* You cannot refer to the baseline settings inside of ``local_settings.py``. In
     practice this means that if you want to add an application to only your local
     environment you need to either modify ``settings.py`` and be careful to not
     commit your changed, or copy the ``INSTALLED_APPS`` from settings.py into
     ``local_settings.py`` and make sure that you keep this list synchronized with
     the one in ``settings.py``.
-
-    * If you do split out settings into multiple files, they all pollute the
+* If you do split out settings into multiple files, they all pollute the
     project directory.
 
 I believe that a solution to this problem is settings as a module. I have included
@@ -34,25 +32,20 @@ instead of a file called ``settings.py``. Inside of the module you have various
 settings files each serving various purposes. I have included an example that
 has the following:
 
-    1. ``project.settings.base`` - This file contains only the most basic settings
+1. ``project.settings.base`` - This file contains only the most basic settings
     that all the other settings might require. In my example it is only the ``DEBUG``
     and ``TEMPLATE_DEBUG`` settings.
-
-    2. ``project.settings.paths`` - This file contains the various ``PROJECT_DIR``
+2. ``project.settings.paths`` - This file contains the various ``PROJECT_DIR``
     and ``PINAX_ROOT`` variables. This could be merged in with ``project.settings.base``.
-
-    3. ``project.settings.django`` - This file contains Django specific settings
+3. ``project.settings.django`` - This file contains Django specific settings
     that deals with Django and Django Contrib Apps settings.
-
-    4. ``project.settings.pinax`` - This file contains any settings that comes
+4. ``project.settings.pinax`` - This file contains any settings that comes
     from Pinax or a Pinax installed application. It might also change any Django
     related setting that is a Pinax requirement.
-
-    5. ``project.settings.project`` - This file contains project overrides and
+5. ``project.settings.project`` - This file contains project overrides and
     any settings for the project. In general most people will be modifying this
     file and from here they can import any of the files 1-4.
-
-    6. ``project.settings.local`` - This file is the replacement for ``local_settings.py``,
+6. ``project.settings.local`` - This file is the replacement for ``local_settings.py``,
     however unlike the current solution, you can reference values from any of the
     other settings files in it. For example::
 
@@ -96,13 +89,11 @@ Advantages
 
 This solves all of the points I've raised with the existing layout. Specifically it:
 
-    * Allows you to organize your settings amongst multiple files, allowing you
+* Allows you to organize your settings amongst multiple files, allowing you
     to organize it by what level of framework the setting comes from.
-
-    * Keeps the project directory from getting a lot of settings files in it to
+* Keeps the project directory from getting a lot of settings files in it to
     support multiple settings files.
-
-    * Allows you to refer to variables from other settings files without causing
+* Allows you to refer to variables from other settings files without causing
     a circular import.
 
 Additionally, it does not conceptually move the location of the settings. So as far
