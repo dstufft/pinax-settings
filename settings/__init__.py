@@ -1,3 +1,6 @@
+# Base Settings
+from pinax_settings.settings.base import *
+
 # Django Settings; Things that deal directly with Django and it's apps
 from pinax_settings.settings.django import *
 
